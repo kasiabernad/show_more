@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'konfident'
-puts Konfident.setup
-

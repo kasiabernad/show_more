@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'rails'
+require 'show_more'
+puts ShowMore.setup

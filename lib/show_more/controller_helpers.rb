@@ -3,23 +3,14 @@ module ShowMore
     extend ActiveSupport::Concern
 
     included do
-      helper_method :collection_with_limit,
-                    :show_more
+      helper_method :collection_with_limit
       private(
-        :collection_with_limit,
-        :show_more
+        :collection_with_limit
       )
     end
 
     def collection_with_limit limit, resources
       @resources = resources.take(limit)
-    end
-
-    def show_more
-      partial = params[:partial]
-      collection = params[:collection]
-      @resources = collection.camelize.singularize.constantize.all
-      render 'application/show_more.js', locales: {collection: params[:collection], partial: partial}
     end
   end
 end

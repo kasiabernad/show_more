@@ -1,16 +1,14 @@
 module ShowMore
   module ViewHelpers
-    def show_more_button(resources, limit, partial)
-      resource_name = resources.first.class.name
-      collection = resource_name.pluralize.downcase
-      if resources.count > limit
-        link_to 'Show More', show_more_path(
+    def show_more_button(partial)
+      collection = @class_name.class.name.pluralize.downcase
+      new_path = request.original_fullpath.to_s + "?all=true"
+      link_to 'Show More', url_for(new_path, {
+                              all: true,
                               collection: collection,
-                              partial: partial,
-                              resource_name: resource_name),
+                              partial: partial}),
                             remote: :true,
                             id: "#{partial}_show_more"
-      end
     end
   end
 end

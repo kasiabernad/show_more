@@ -9,8 +9,20 @@ module ShowMore
       )
     end
 
-    def collection_with_limit limit, resources
-      @resources = resources.take(limit)
+    def collection_with_limit(limit, class_name)
+      @limit = limit
+      @class_name = class_name
+      if params[:all].nil?
+        @q = class_name.search(params[:q])
+        @resources = @q.result.limit(@limit)
+      else
+        @q = class_name.search(params[:q])
+        @resources = @q.result
+
+        respond_to do |format|
+          format.js { render 'templates/show_more'}
+        end
+      end
     end
   end
 end
